@@ -1,5 +1,6 @@
 <launch>
   <arg name="serial_no"           default=""/>
+  <arg name="device_type"    		  default="d435i"/>
   <arg name="json_file_path"      default=""/>
   <arg name="camera"              default="camera"/>
   <arg name="tf_prefix"           default="$(arg camera)"/>
@@ -35,11 +36,14 @@
   <arg name="align_depth"         default="true"/>
 
   <arg name="filters"             default=""/>
+  <arg name="initial_reset"       default="false"/>
+  <arg name="reconnect_timeout"   default="0"/>
 
   <group ns="$(arg camera)">
     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
       <arg name="tf_prefix"                value="$(arg tf_prefix)"/>
       <arg name="serial_no"                value="$(arg serial_no)"/>
+      <arg name="device_type"              value="$(arg device_type)"/>
       <arg name="json_file_path"           value="$(arg json_file_path)"/>
 
       <arg name="enable_pointcloud"        value="$(arg enable_pointcloud)"/>
@@ -73,7 +77,8 @@
       <arg name="enable_gyro"              value="$(arg enable_gyro)"/>
       <arg name="enable_accel"             value="$(arg enable_accel)"/>
       
-      <arg name="initial_reset"            default="true"/>
+      <arg name="initial_reset"            value="$(arg initial_reset)"/>
+      <arg name="reconnect_timeout"        value="$(arg reconnect_timeout)"/>
       <arg name="filters"                  value="$(arg filters)"/>
     </include>
   </group>
